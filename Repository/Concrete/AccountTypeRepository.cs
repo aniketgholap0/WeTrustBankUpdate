@@ -32,9 +32,6 @@ namespace WeTrustBank.Repository.Concrete
 
                 await sqlConnection.OpenAsync();
                 var rowsAffected = await sqlCommand.ExecuteScalarAsync();
-
-
-
                 return rowsAffected != DBNull.Value ? Convert.ToInt32(rowsAffected) : 0;
             }
 

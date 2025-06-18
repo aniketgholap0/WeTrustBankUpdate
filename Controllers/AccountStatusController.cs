@@ -14,7 +14,6 @@ namespace WeTrustBank.Controllers
         }
 
         [HttpPost("CreateAccountStatus")]
-
         public async Task<IActionResult> CreateAccountStatus(string accountStatusName, string createdBy)
         {
             try

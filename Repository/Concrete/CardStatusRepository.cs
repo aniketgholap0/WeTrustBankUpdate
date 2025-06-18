@@ -154,6 +154,7 @@ namespace WeTrustBank.Repository.Concrete
             catch (Exception ex)
             {
                 throw;
+                 
             }
             
         }

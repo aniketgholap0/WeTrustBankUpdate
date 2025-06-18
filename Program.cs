@@ -21,12 +21,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccountTypeService, AccountTypeService>();
 builder.Services.AddScoped<IAccountStatusService, AccountStatusService>();
 builder.Services.AddScoped<ICardStatusService, CardStatusService>();
+builder.Services.AddScoped<IBankAccountService, BankAccountService>();
+builder.Services.AddScoped<IApplicantsService, ApplicantsService>();
+builder.Services.AddScoped<IApplicantAccountMappingService, ApplicantAccountMappingService>();
 
 
-// Repository Injection    
+
+// Repository Injection
 builder.Services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
 builder.Services.AddScoped<IAccountStatusRepository, AccountStatusRepository>();
 builder.Services.AddScoped<ICardStatusRepository, CardStatusRepository>();
+builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
+builder.Services.AddScoped<IApplicantsRepository, ApplicantsRepository>();
+builder.Services.AddScoped<IApplicantAccountMappingRepository, ApplicantAccountMappingRepository>();
+
+
 
 
 var app = builder.Build();
