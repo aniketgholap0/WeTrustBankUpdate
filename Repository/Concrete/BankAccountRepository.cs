@@ -24,7 +24,7 @@ namespace WeTrustBank.Repository.Concrete
                 using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
                 using SqlCommand sqlCommand = new("[dbo].[Usp_Generate_BankAccount]", sqlConnection)
                 {
-                    CommandType = System.Data.CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure
                 };
                 sqlCommand.Parameters.AddWithValue("@AccountNumber", accountNumber);
                 sqlCommand.Parameters.AddWithValue("@CreatedBy", createdBy);
@@ -37,7 +37,6 @@ namespace WeTrustBank.Repository.Concrete
             {
                 throw;
             }
-
         }
 
         public async Task<List<BankAccount>> GetAllBankAccounts()
@@ -85,7 +84,7 @@ namespace WeTrustBank.Repository.Concrete
                 using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
                 using SqlCommand sqlCommand = new("[dbo].[Usp_Get_BankAccountById]", sqlConnection)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure 
                 };
                 sqlCommand.Parameters.AddWithValue("@BankAccountId", bankAccountId);
                 await sqlConnection.OpenAsync();
@@ -119,7 +118,7 @@ namespace WeTrustBank.Repository.Concrete
                 using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
                 using SqlCommand sqlCommand = new("[dbo].[Usp_Delete_BankAccountNumberByAccountNumber]", sqlConnection)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure 
                 };
                 sqlCommand.Parameters.AddWithValue("@AccountNumber", accountNumber);
                 await sqlConnection.OpenAsync();
@@ -132,5 +131,28 @@ namespace WeTrustBank.Repository.Concrete
                 throw;
             }
         }
+
+        public async Task<int> GenerateBulkBankAccounts(long bankAccountSeries,int maxRows)
+        {
+            try
+            {
+                using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
+                using SqlCommand sqlCommand = new("[dbo].[Usp_Generate_BulkBankAccounts]", sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                sqlCommand.Parameters.AddWithValue("@BankAccountSeries",bankAccountSeries);
+                sqlCommand.Parameters.AddWithValue("@MaxRows",maxRows);
+                await sqlConnection.OpenAsync();
+
+                var result = await sqlCommand.ExecuteScalarAsync();
+                return result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

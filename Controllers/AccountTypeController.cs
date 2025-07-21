@@ -69,7 +69,6 @@ namespace WeTrustBank.Controllers
         }
 
         [HttpGet("GetAccountTypeById")]
-
         public async Task<IActionResult> GetAccountTypeById(int accountTypeId)
         {
             try

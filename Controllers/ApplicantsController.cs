@@ -113,6 +113,67 @@ namespace WeTrustBank.Controllers
                 throw;
             }
         }
-    }
 
+        [HttpPut("UpdateApplicantByAadharCardNumber")]
+        public async Task<IActionResult> UpdateApplicantByAadharCardNumber([FromBody] ApplicantUpdateByAadharCardNumberDto applicantsUpdateByAadharCardNumberDto)
+        {
+            try
+            {
+                if(applicantsUpdateByAadharCardNumberDto == null)
+                {
+                    return BadRequest("Please pass all the parameters in the applicantsUpdateByAadharCardNumberDto.");
+                }
+
+                var result = await _applicantsService.UpdateApplicantByAadharCardNumber(applicantsUpdateByAadharCardNumberDto);
+                return result == -1 ? Conflict("The provided Aadhar card number does not exist.")
+                     : Ok("Applicant Updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("UpdateApplicantByPanNumber")]
+        public async Task<IActionResult> UpdateApplicantByPanNumber([FromBody] ApplicantUpdatebyPanNumberDto applicantUpdatebyPanNumberDto)
+        {
+            try
+            {
+                if(applicantUpdatebyPanNumberDto == null)
+                {
+                    return BadRequest("Please pass all the parameters in the applicantUpdatebyPanNumberDto.");
+                }
+
+                var result = await _applicantsService.UpdateApplicantByPanNumber(applicantUpdatebyPanNumberDto);
+                return result == -1 ? Conflict("The PAN number does not exist.")
+                    : Ok("Applicant Updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("UpdateApplicantByPhoneNumber")]
+        public async Task<IActionResult> UpdateApplicantByPhoneNumber([FromBody] ApplicantUpdateByPhoneNumberDto applicantUpdateByPhoneNumberDto)
+        {
+            try
+            {
+                if(applicantUpdateByPhoneNumberDto == null)
+                {
+                    return BadRequest("Please pass all the parameters in the applicantUpdatebyPhoneNumberDto.");
+                }
+
+                var result = await _applicantsService.UpdateApplicantByPhoneNumber(applicantUpdateByPhoneNumberDto);
+                return result == -1 ? Conflict("The Phone number does not exist.")
+                    : Ok("Applicant Updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+    }
 }

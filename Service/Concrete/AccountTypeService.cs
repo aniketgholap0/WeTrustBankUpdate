@@ -19,7 +19,6 @@ namespace WeTrustBank.Service.Concrete
             return await _accountTypeRepository.CreateAccountType(accountTypeName, createdBy);
         }
         
-
         public async Task<int> UpdateAccountType(int accountTypeId, string accountTypeName, string updatedBy)
         {
             return await _accountTypeRepository.UpdateAccountType(accountTypeId, accountTypeName, updatedBy);

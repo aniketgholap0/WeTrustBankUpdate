@@ -49,5 +49,9 @@ namespace WeTrustBank.Service.Concrete
             return await _bankAccountRepository.BankAccountNumberByAccountNumber(accountNumber);
         }
 
+        public async Task<int> GenerateBulkBankAccounts(long bankAccountSeries,int maxRows)
+        {
+            return await _bankAccountRepository.GenerateBulkBankAccounts(bankAccountSeries,maxRows);
+        }
     }
 }

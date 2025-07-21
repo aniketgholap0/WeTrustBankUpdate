@@ -1,5 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 using System.Data;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -199,7 +201,7 @@ namespace WeTrustBank.Repository.Concrete
                         CreatedOn = reader["CreatedOn"] != DBNull.Value
                                     ? Convert.ToDateTime(reader["DateOfBirth"]) : default,
                     };
-                    applicants.Add(applicant) ;
+                    applicants.Add(applicant);
                 }
                 return applicants;
             }
@@ -267,10 +269,110 @@ namespace WeTrustBank.Repository.Concrete
             }
             catch (Exception ex)
             {
-              throw;
+                throw;
             }
             return applicants;
         }
 
+        public async Task<int> UpdateApplicantByAadharCardNumber(ApplicantUpdateByAadharCardNumberDto applicantsUpdateByAadharCardNumberDto)
+        {
+            try
+            {
+                using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
+                using SqlCommand sqlCommand = new("[dbo].[Usp_Update_ApplicantByPhoneNumber]", sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure 
+                };
+                sqlCommand.Parameters.AddWithValue("@AadharCardNumber", applicantsUpdateByAadharCardNumberDto.AadharCardNumber);
+                sqlCommand.Parameters.AddWithValue("@FirstName", applicantsUpdateByAadharCardNumberDto.FirstName);
+                sqlCommand.Parameters.AddWithValue("@LastName", applicantsUpdateByAadharCardNumberDto.LastName);
+                sqlCommand.Parameters.AddWithValue("@PhoneNumber", applicantsUpdateByAadharCardNumberDto.PhoneNumber);
+                sqlCommand.Parameters.AddWithValue("@Email", applicantsUpdateByAadharCardNumberDto.Email);
+                sqlCommand.Parameters.AddWithValue("@Address", applicantsUpdateByAadharCardNumberDto.Address);
+                sqlCommand.Parameters.AddWithValue("@Country", applicantsUpdateByAadharCardNumberDto.Country);
+                sqlCommand.Parameters.AddWithValue("@State", applicantsUpdateByAadharCardNumberDto.State);
+                sqlCommand.Parameters.AddWithValue("@District", applicantsUpdateByAadharCardNumberDto.District);
+                sqlCommand.Parameters.AddWithValue("@City", applicantsUpdateByAadharCardNumberDto.City);
+                sqlCommand.Parameters.AddWithValue("@ZipCode", applicantsUpdateByAadharCardNumberDto.ZipCode);
+                sqlCommand.Parameters.AddWithValue("@PanNumber", applicantsUpdateByAadharCardNumberDto.PanNumber);
+                sqlCommand.Parameters.AddWithValue("@UpdatedBy", applicantsUpdateByAadharCardNumberDto.UpdatedBy);
+
+                await sqlConnection.OpenAsync();
+                var rowsAffected = await sqlCommand.ExecuteScalarAsync();
+                return rowsAffected != null && rowsAffected != DBNull.Value ? Convert.ToInt32(rowsAffected) : 0;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+     
+        public async Task<int> UpdateApplicantByPanNumber(ApplicantUpdatebyPanNumberDto applicantsUpdateByPanNumberDto)
+        {
+            try
+            {
+                using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
+                using SqlCommand sqlCommand = new("[dbo].[Usp_Update_ApplicantByPhoneNumber]", sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure 
+                };
+
+                sqlCommand.Parameters.AddWithValue("@PanNumber", applicantsUpdateByPanNumberDto.PanNumber);
+                sqlCommand.Parameters.AddWithValue("@FirstName", applicantsUpdateByPanNumberDto.FirstName);
+                sqlCommand.Parameters.AddWithValue("@LastName", applicantsUpdateByPanNumberDto.LastName);
+                sqlCommand.Parameters.AddWithValue("@PhoneNumber", applicantsUpdateByPanNumberDto.PhoneNumber);
+                sqlCommand.Parameters.AddWithValue("@Email", applicantsUpdateByPanNumberDto.Email);
+                sqlCommand.Parameters.AddWithValue("@Address", applicantsUpdateByPanNumberDto.Address);
+                sqlCommand.Parameters.AddWithValue("@Country", applicantsUpdateByPanNumberDto.Country);
+                sqlCommand.Parameters.AddWithValue("@State", applicantsUpdateByPanNumberDto.State);
+                sqlCommand.Parameters.AddWithValue("@District", applicantsUpdateByPanNumberDto.District);
+                sqlCommand.Parameters.AddWithValue("@City", applicantsUpdateByPanNumberDto.City);
+                sqlCommand.Parameters.AddWithValue("@ZipCode", applicantsUpdateByPanNumberDto.ZipCode);
+                sqlCommand.Parameters.AddWithValue("@AadharCardNumber", applicantsUpdateByPanNumberDto.AadharCardNumber);
+                sqlCommand.Parameters.AddWithValue("@UpdatedBy", applicantsUpdateByPanNumberDto.UpdatedBy);
+
+                await sqlConnection.OpenAsync();
+                var rowsAffected = await sqlCommand.ExecuteScalarAsync();
+                return rowsAffected != null && rowsAffected != DBNull.Value ? Convert.ToInt32(rowsAffected) : 0;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<int> UpdateApplicantByPhoneNumber(ApplicantUpdateByPhoneNumberDto applicantUpdateByPhoneNumberDto)
+        {
+            try
+            {
+                using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
+                using SqlCommand sqlCommand = new("[dbo].[Usp_Update_ApplicantByPhoneNumber]", sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                sqlCommand.Parameters.AddWithValue("@PhoneNumber", applicantUpdateByPhoneNumberDto.PhoneNumber);
+                sqlCommand.Parameters.AddWithValue("@FirstName", applicantUpdateByPhoneNumberDto.FirstName);
+                sqlCommand.Parameters.AddWithValue("@LastName", applicantUpdateByPhoneNumberDto.LastName);
+                sqlCommand.Parameters.AddWithValue("@Email", applicantUpdateByPhoneNumberDto.Email);
+                sqlCommand.Parameters.AddWithValue("@Address", applicantUpdateByPhoneNumberDto.Address);
+                sqlCommand.Parameters.AddWithValue("@Country", applicantUpdateByPhoneNumberDto.Country);
+                sqlCommand.Parameters.AddWithValue("@State", applicantUpdateByPhoneNumberDto.State);
+                sqlCommand.Parameters.AddWithValue("@District", applicantUpdateByPhoneNumberDto.District);
+                sqlCommand.Parameters.AddWithValue("@City", applicantUpdateByPhoneNumberDto.City);
+                sqlCommand.Parameters.AddWithValue("@ZipCode", applicantUpdateByPhoneNumberDto.ZipCode);
+                sqlCommand.Parameters.AddWithValue("@AadharCardNumber", applicantUpdateByPhoneNumberDto.AadharCardNumber);
+                sqlCommand.Parameters.AddWithValue("@PanNumber", applicantUpdateByPhoneNumberDto.PanNumber);
+                sqlCommand.Parameters.AddWithValue("@UpdatedBy", applicantUpdateByPhoneNumberDto.UpdatedBy);
+
+                await sqlConnection.OpenAsync();
+                var rowsAffected = await sqlCommand.ExecuteScalarAsync();
+                return rowsAffected != null && rowsAffected != DBNull.Value ? Convert.ToInt32(rowsAffected) : 0;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

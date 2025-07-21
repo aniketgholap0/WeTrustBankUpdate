@@ -24,6 +24,9 @@ builder.Services.AddScoped<ICardStatusService, CardStatusService>();
 builder.Services.AddScoped<IBankAccountService, BankAccountService>();
 builder.Services.AddScoped<IApplicantsService, ApplicantsService>();
 builder.Services.AddScoped<IApplicantAccountMappingService, ApplicantAccountMappingService>();
+builder.Services.AddScoped<IDebitCardDetailsService, DebitCardDetailsService>();
+builder.Services.AddScoped<INomineeDetailsService, NomineeDetailsService>();
+builder.Services.AddScoped<IAccountTransactionService, AccountTransactionService>();
 
 
 
@@ -34,6 +37,9 @@ builder.Services.AddScoped<ICardStatusRepository, CardStatusRepository>();
 builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 builder.Services.AddScoped<IApplicantsRepository, ApplicantsRepository>();
 builder.Services.AddScoped<IApplicantAccountMappingRepository, ApplicantAccountMappingRepository>();
+builder.Services.AddScoped<IDebitCardDetailsRepository, DebitCardDetailsRepository>();
+builder.Services.AddScoped<INomineeDetailsRepository, NomineeDetailsRepository>();
+builder.Services.AddScoped<IAccountTransactionRepository, AccountTransactionsRepository>();
 
 
 

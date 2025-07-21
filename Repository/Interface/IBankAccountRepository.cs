@@ -1,4 +1,5 @@
-﻿using WeTrustBank.Model;
+﻿using Microsoft.IdentityModel.Logging;
+using WeTrustBank.Model;
 
 namespace WeTrustBank.Repository.Interface
 {
@@ -8,5 +9,6 @@ namespace WeTrustBank.Repository.Interface
         Task<List<BankAccount>> GetAllBankAccounts();
         Task<BankAccount> GetBankAccountById(int bankAccountId);
         Task<int> BankAccountNumberByAccountNumber(long accountNumber);
+        Task<int> GenerateBulkBankAccounts(long bankAccountNumber,int maxRows);
     }
 }

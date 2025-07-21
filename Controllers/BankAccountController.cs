@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using WeTrustBank.Model;
 using WeTrustBank.Service.Interface;
 
 namespace WeTrustBank.Controllers
@@ -76,7 +79,7 @@ namespace WeTrustBank.Controllers
 
                 var result = await _bankAccountService.BankAccountNumberByAccountNumber(accountNumber);
                 return result == -1 ? Conflict("Account number can not be deleted as this account is mapped to an Applicant")
-                            : result == -2 ? NotFound("Account number not found") 
+                            : result == -2 ? NotFound("Account number not found")
                             : Ok("Account number deleted successfully");
             }
             catch (Exception)
@@ -84,5 +87,25 @@ namespace WeTrustBank.Controllers
                 throw;
             }
         }
+
+        [HttpPost("GenerateBulkBankAccounts")]
+        public async Task<IActionResult> GenerateBulkBankAccounts(long bankAccountSeries, int maxRows)
+        {
+            try
+            {
+                if (bankAccountSeries <= 0 || maxRows <= 0)
+                {
+                    return BadRequest("BankAccountSeries and MaxRows must be greater than zero");
+                }
+                var result = await _bankAccountService.GenerateBulkBankAccounts(bankAccountSeries,maxRows);
+                return Ok("Bank accounts generated successfully.");
+              
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

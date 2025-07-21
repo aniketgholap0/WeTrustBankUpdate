@@ -10,5 +10,9 @@ namespace WeTrustBank.Repository.Interface
         Task<ApplicantDto> GetApplicantById(int applicantId);
         Task<List<GetAllApplicantsDto>> GetAllApplicants();
         Task<List<ApplicantDto>> GetApplicantsBetween(DateTime startDate, DateTime endDate);
+        Task<int> UpdateApplicantByAadharCardNumber(ApplicantUpdateByAadharCardNumberDto applicantsUpdateByAadharCardNumberDto);
+        Task<int> UpdateApplicantByPanNumber(ApplicantUpdatebyPanNumberDto applicantsUpdateByPanNumberDto);
+        Task<int> UpdateApplicantByPhoneNumber(ApplicantUpdateByPhoneNumberDto applicantUpdateByPhoneNumberDto);
+        
     }
 }

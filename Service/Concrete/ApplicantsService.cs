@@ -38,5 +38,20 @@ namespace WeTrustBank.Service.Concrete
         {
             return await _applicantsRepository.GetApplicantsBetween(startDate, endDate);
         }
+
+        public async Task<int> UpdateApplicantByAadharCardNumber(ApplicantUpdateByAadharCardNumberDto applicantsUpdateByAadharCardNumberDto)
+        {
+            return await _applicantsRepository.UpdateApplicantByAadharCardNumber(applicantsUpdateByAadharCardNumberDto);
+        }
+
+        public async Task<int> UpdateApplicantByPanNumber(ApplicantUpdatebyPanNumberDto applicantsUpdateByPanNumberDto)
+        {
+            return await _applicantsRepository.UpdateApplicantByPanNumber(applicantsUpdateByPanNumberDto);
+        }
+
+        public async  Task<int> UpdateApplicantByPhoneNumber(ApplicantUpdateByPhoneNumberDto applicantUpdateByPhoneNumberDto)
+        {
+            return await _applicantsRepository.UpdateApplicantByPhoneNumber(applicantUpdateByPhoneNumberDto);
+        }
     }
 }

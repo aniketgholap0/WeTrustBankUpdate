@@ -23,36 +23,31 @@ namespace WeTrustBank.Repository.Concrete
             {
 
                 using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
-                using SqlCommand sqlCommand = new("[dbo].[Usp_Create_AccountType]", sqlConnection)
+                using SqlCommand sqlCommand = new("[dbo].[Usp_Create_AccountType]",sqlConnection)
                 {
-                    CommandType = System.Data.CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure
                 };
                 sqlCommand.Parameters.AddWithValue("@AccountTypeName", accountTypeName);
                 sqlCommand.Parameters.AddWithValue("@CreatedBy", createdBy);
-
+                
                 await sqlConnection.OpenAsync();
                 var rowsAffected = await sqlCommand.ExecuteScalarAsync();
                 return rowsAffected != DBNull.Value ? Convert.ToInt32(rowsAffected) : 0;
             }
-
             catch (Exception ex)
             {
                 throw;
             }
         }
 
-
-
         public async Task<int> UpdateAccountType(int accountTypeId, string accountTypeName, string updatedBy)
         {
             try
             {
-
-
                 using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
                 using SqlCommand sqlCommand = new("[dbo].[Usp_Update_AccountType]", sqlConnection)
                 {
-                    CommandType = System.Data.CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure
                 };
                 sqlCommand.Parameters.AddWithValue("@AccountTypeId", accountTypeId);
                 sqlCommand.Parameters.AddWithValue("@AccountTypeName", accountTypeName);
@@ -144,7 +139,6 @@ namespace WeTrustBank.Repository.Concrete
             {
                 throw;
             }
-
         }
 
         public async Task<int> DeleteAccountTypeById(int accountTypeId)
@@ -157,12 +151,10 @@ namespace WeTrustBank.Repository.Concrete
                     CommandType = CommandType.StoredProcedure
                 };
                 sqlCommand.Parameters.AddWithValue("@AccountTypeId", accountTypeId);
-
                 await sqlConnection.OpenAsync();
                 var rowsAffected = await sqlCommand.ExecuteScalarAsync();
 
                 return rowsAffected != DBNull.Value ? Convert.ToInt32(rowsAffected) : 0;
-
             }
             catch (Exception ex)
             {
