@@ -16,7 +16,6 @@ namespace WeTrustBank.Repository.Concrete
             _appSettings = appSettings;
         }
 
-
         public async Task<int> GenerateDebitCardDetails(GenerateDebitCardDetails generateDebitCardDetails)
         {
             using SqlConnection sqlConnection = new(_appSettings.Value.WeTrustBankDBConnection);
